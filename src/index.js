@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDom from 'react-dom';
-import App from './app';
+import React from "react";
+import ReactDom from "react-dom";
+import App from "./app";
 
-ReactDom.render(<App />, document.querySelector('.root'));
+ReactDom.render(<App />, document.querySelector(".root"));
 
-if(module && module.hot) module.hot.accept()
+if (module && module.hot) module.hot.accept();

@@ -1,34 +1,45 @@
-const path = require('path');
-const htmlPlugin = require('html-webpack-plugin');
+const path = require("path");
+const htmlPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.js",
+  entry: { main: path.resolve("./src/index.js") },
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'main.js'
+    path: path.resolve(__dirname, "build"),
+    filename: "[name].[contenthash].js",
+    clean: true,
   },
+  devtool: "inline-source-map",
   devServer: {
     port: 1234,
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, "dist"),
     writeToDisk: false,
     compress: true,
-    hot: true
+    hot: true,
+    watchContentBase: true,
   },
+  //loaders
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
-      }
+          loader: "babel-loader",
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ["css-loader", "style-loader"],
+      },
     ],
   },
+  //plugins
   plugins: [
     new htmlPlugin({
-      template: './src/index.html',
-    })
-  ]
-}
+      title: "WEBPACK-BASE-CONFIG",
+      filename: "index.html",
+      template: "./src/index.html",
+    }),
+  ],
+};
